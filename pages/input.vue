@@ -95,7 +95,7 @@ const columns = [
 
 const addToPreview = () => {
   if (!selectedProduct.value || !formData.value.nama_nasabah) return alert("Lengkapi data nasabah dan produk!")
-  if (formData.value.no_rekening.length !== 16) return alert("Nomor Rekening harus 16 digit!") [cite: 75]
+  if (formData.value.no_rekening.length !== 16) return alert("Nomor Rekening harus 16 digit!")
 
   previewData.value.push({
     ...formData.value,

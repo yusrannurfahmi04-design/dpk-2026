@@ -97,16 +97,12 @@ const addToPreview = () => {
   if (!selectedProduct.value || !formData.value.nama_nasabah) return alert("Lengkapi data nasabah dan produk!")
   if (formData.value.no_rekening.length !== 16) return alert("Nomor Rekening harus 16 digit!")
 
-  const addToPreview = () => {
-  if (!selectedProduct.value || !formData.value.nama_nasabah) return alert("Lengkapi data nasabah dan produk!")
-  if (formData.value.no_rekening.length !== 16) return alert("Nomor Rekening harus 16 digit!")
-
   previewData.value.push({
     nama_nasabah: formData.value.nama_nasabah,
     nominal_potensi: formData.value.nominal_potensi,
     no_rekening: formData.value.no_rekening,
     periode_pipeline: formData.value.periode_pipeline,
-    kd_produk: selectedProduct.value.kd_produk, // Hanya kirim kodenya saja
+    kd_produk: selectedProduct.value.kd_produk, // Hanya ini yang dibutuhkan database
     realisasi: formData.value.nominal_potensi,
     penjelasan_gap: ''
   })

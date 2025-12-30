@@ -1,24 +1,37 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
-    <nav class="bg-primary-600 text-white shadow-lg p-4">
-      <UContainer class="flex justify-between items-center">
-        <h1 class="font-bold text-lg">DPK MONITORING 2026</h1>
-        <div class="flex gap-4">
-          <UButton to="/" variant="ghost" color="white">Home</UButton>
-          <UButton to="/dashboard" variant="ghost" color="white">Dashboard</UButton>
-          <UButton to="/input" variant="ghost" color="white">Input Unit</UButton>
-          <UButton to="/rekap" variant="ghost" color="white">Rekap Admin</UButton>
-        </div>
-      </UContainer>
+  <div class="min-h-screen bg-gray-50">
+    <nav v-if="user" class="bg-primary-600 text-white p-4 shadow-md flex justify-between items-center">
+      <div class="flex gap-6 items-center">
+        <span class="font-bold text-lg">DPK 2026</span>
+        <NuxtLink to="/dashboard" class="hover:underline">Dashboard</NuxtLink>
+        <NuxtLink to="/input" class="hover:underline">Input Pipeline</NuxtLink>
+        <NuxtLink to="/rekap" class="hover:underline">Rekap Admin</NuxtLink>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="text-sm italic">{{ user.email }}</span>
+        <UButton color="red" variant="ghost" @click="handleLogout">Logout</UButton>
+      </div>
     </nav>
 
-    <main class="py-6">
+    <UContainer class="py-6">
       <NuxtPage />
-    </main>
+    </UContainer>
   </div>
 </template>
 
-<style>
-/* Memastikan tema warna utama bank Anda muncul */
-.bg-primary-600 { background-color: #0056b3; } 
-</style>
+<script setup>
+const user = useSupabaseUser()
+const client = useSupabaseClient()
+
+const handleLogout = async () => {
+  await client.auth.signOut()
+  navigateTo('/login')
+}
+
+// Redirect otomatis jika belum login
+watchEffect(() => {
+  if (!user.value) {
+    navigateTo('/login')
+  }
+})
+</script>

@@ -1,12 +1,12 @@
 export default defineNuxtRouteMiddleware((to) => {
   const user = useSupabaseUser()
 
-  // 1. Jika BELUM login dan mencoba buka halaman selain /login, arahkan ke /login
+  // Mencegah looping: Jika belum login dan tidak di halaman login, baru lempar ke login
   if (!user.value && to.path !== '/login') {
     return navigateTo('/login')
   }
 
-  // 2. Jika SUDAH login dan mencoba buka /login, arahkan ke dashboard
+  // Jika sudah login tapi malah mau ke halaman login, lempar ke dashboard
   if (user.value && to.path === '/login') {
     return navigateTo('/dashboard')
   }

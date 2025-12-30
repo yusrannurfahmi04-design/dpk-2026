@@ -1,17 +1,24 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <nav class="bg-primary-700 text-white p-4 shadow-lg">
+  <div class="min-h-screen bg-gray-100">
+    <nav class="bg-primary-600 text-white shadow-lg p-4">
       <UContainer class="flex justify-between items-center">
-        <div class="flex items-center gap-4">
-          <span class="font-bold text-xl tracking-tight">DPK 2026</span>
-          <div class="h-6 w-px bg-primary-500 mx-2"></div>
-          <NuxtLink to="/dashboard" class="hover:text-primary-200 px-2">Dashboard</NuxtLink>
-          <NuxtLink to="/input" class="hover:text-primary-200 px-2">Input Unit</NuxtLink>
-          <NuxtLink to="/rekap" class="hover:text-primary-200 px-2">Rekap Admin</NuxtLink>
+        <h1 class="font-bold text-lg">DPK MONITORING 2026</h1>
+        <div class="flex gap-4">
+          <UButton to="/" variant="ghost" color="white">Home</UButton>
+          <UButton to="/dashboard" variant="ghost" color="white">Dashboard</UButton>
+          <UButton to="/input" variant="ghost" color="white">Input Unit</UButton>
+          <UButton to="/rekap" variant="ghost" color="white">Rekap Admin</UButton>
         </div>
-        <UAvatar src="https://avatars.githubusercontent.com/u/1?v=4" alt="User" />
       </UContainer>
     </nav>
-    <NuxtPage />
+
+    <main class="py-6">
+      <NuxtPage />
+    </main>
   </div>
 </template>
+
+<style>
+/* Memastikan tema warna utama bank Anda muncul */
+.bg-primary-600 { background-color: #0056b3; } 
+</style>

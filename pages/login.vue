@@ -1,27 +1,25 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-[#004a99] p-4">
-    <UCard class="w-full max-w-md shadow-2xl">
-      <template #header>
-        <div class="text-center py-4">
-          <h2 class="text-2xl font-bold text-blue-900 uppercase">Login Monitoring</h2>
-          <p class="text-sm text-gray-500 italic">Sesuai Draft Implementasi DPK 2026</p>
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-8">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-black text-blue-900 leading-none">MONITORING DPK</h2>
+        <p class="text-xs text-gray-500 mt-2 font-medium uppercase tracking-widest italic">Sesuai Draft Implementasi 2026</p>
+      </div>
+
+      <form @submit.prevent="handleLogin" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Email Pegawai</label>
+          <input v-model="email" type="email" class="w-full border-gray-300 rounded-lg shadow-sm p-3 border" placeholder="user@bank.com" required />
         </div>
-      </template>
-
-      <form @submit.prevent="handleLogin" class="space-y-6">
-        <UFormGroup label="Email Pegawai" name="email">
-          <UInput v-model="email" type="email" placeholder="user@bank.com" icon="i-heroicons-envelope" />
-        </UFormGroup>
-
-        <UFormGroup label="Password" name="password">
-          <UInput v-model="password" type="password" placeholder="••••••••" icon="i-heroicons-lock-closed" />
-        </UFormGroup>
-
-        <UButton type="submit" block color="primary" size="lg" :loading="loading">
-          MASUK SEKARANG
-        </UButton>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1 uppercase">Password</label>
+          <input v-model="password" type="password" class="w-full border-gray-300 rounded-lg shadow-sm p-3 border" placeholder="••••••••" required />
+        </div>
+        <button type="submit" :disabled="loading" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-lg shadow-lg transition">
+          {{ loading ? 'MENGECEK DATA...' : 'MASUK KE SISTEM' }}
+        </button>
       </form>
-    </UCard>
+    </div>
   </div>
 </template>
 
@@ -31,18 +29,11 @@ const password = ref('')
 const loading = ref(false)
 const client = useSupabaseClient()
 
-async function handleLogin() {
+const handleLogin = async () => {
   loading.value = true
-  const { error } = await client.auth.signInWithPassword({
-    email: email.value,
-    password: password.value
-  })
-  
-  if (error) {
-    alert("Gagal Masuk: Email atau Password salah!")
-  } else {
-    navigateTo('/dashboard')
-  }
+  const { error } = await client.auth.signInWithPassword({ email: email.value, password: password.value })
+  if (error) alert("Email atau Password salah!")
+  else navigateTo('/dashboard')
   loading.value = false
 }
 </script>
